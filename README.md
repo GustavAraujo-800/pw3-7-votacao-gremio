@@ -67,3 +67,25 @@
   * `PUT /api/candidatos/{id}` — Edita dados do candidato.
   * `DELETE /api/candidatos/{id}` — Remove candidato.
   * `POST /api/candidatos/{id}/votar` — Soma 1 voto e reavalia o líder da categoria.
+
+* **Pseudocódigo da Regra de Negócio (Computar Voto e Atualizar Líder):**
+```text
+Função registrarVoto(candidatoId):
+    candidatoVotado = repository.buscarPorId(candidatoId)
+    candidatoVotado.quantidadeVotos = candidatoVotado.quantidadeVotos + 1
+    repository.salvar(candidatoVotado)
+    
+    // Atualizar status de eleito para a mesma categoria
+    todosDaCategoria = repository.buscarPorCategoria(candidatoVotado.categoria)
+    maiorVotacao = buscarMaiorVoto(todosDaCategoria)
+    
+    Para Cada candidato Em todosDaCategoria Faça
+        Se candidato.quantidadeVotos == maiorVotacao E maiorVotacao > 0 Então
+            candidato.eleito = Verdadeiro
+        Senão
+            candidato.eleito = Falso
+        FimSe
+        repository.salvar(candidato)
+    FimPara
+FimFuncao
+```
