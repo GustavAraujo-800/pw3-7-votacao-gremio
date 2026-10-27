@@ -1,6 +1,7 @@
 package br.com.gustavorochaEfelipeecardozo.votacao_gremio.entity;
 
 
+import br.com.gustavorochaEfelipeecardozo.votacao_gremio.Enum.Candidatos_nomes;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,8 +17,9 @@ public class Candidato {
     @Column(name = "Id_C")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "NOME_C")
-    private String nome_c;
+    private Candidatos_nomes nome_c;
 
     @Column(name = "CATEGORIA")
     private String categoria;
